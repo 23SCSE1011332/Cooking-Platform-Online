@@ -1,0 +1,91 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        CookingPlatform platform = new CookingPlatform();
+        Scanner scanner = new Scanner(System.in);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        while (true) {
+            System.out.println("\n==== Cooking Platform Menu ====");
+            System.out.println("1. Add User");
+            System.out.println("2. Add Cooking Class");
+            System.out.println("3. Add Recipe");
+            System.out.println("4. Display User");
+            System.out.println("5. Display Cooking Class");
+            System.out.println("6. Display Recipe");
+            System.out.println("7. Schedule Classes");
+            System.out.println("8. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter User ID: ");
+                    String userId = scanner.nextLine();
+                    System.out.print("Enter Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter Email: ");
+                    String email = scanner.nextLine();
+                    platform.addUser(userId, name, email);
+                    break;
+
+                case 2:
+                    System.out.print("Enter Class ID: ");
+                    String classId = scanner.nextLine();
+                    System.out.print("Enter Class Name: ");
+                    String className = scanner.nextLine();
+                    System.out.print("Enter Schedule (yyyy-MM-dd HH:mm): ");
+                    String scheduleStr = scanner.nextLine();
+                    LocalDateTime schedule = LocalDateTime.parse(scheduleStr, formatter);
+                    System.out.print("Enter Instructor Name: ");
+                    String instructor = scanner.nextLine();
+                    platform.addClass(classId, className, schedule, instructor);
+                    break;
+
+                case 3:
+                    System.out.print("Enter Recipe ID: ");
+                    String recipeId = scanner.nextLine();
+                    System.out.print("Enter Recipe Title: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Enter Ingredients: ");
+                    String ingredients = scanner.nextLine();
+                    platform.addRecipe(recipeId, title, ingredients);
+                    break;
+
+                case 4:
+                    System.out.print("Enter User ID: ");
+                    userId = scanner.nextLine();
+                    platform.displayUser(userId);
+                    break;
+
+                case 5:
+                    System.out.print("Enter Class ID: ");
+                    classId = scanner.nextLine();
+                    platform.displayClass(classId);
+                    break;
+
+                case 6:
+                    System.out.print("Enter Recipe ID: ");
+                    recipeId = scanner.nextLine();
+                    platform.displayRecipe(recipeId);
+                    break;
+
+                case 7:
+                    platform.scheduleClasses();
+                    break;
+
+                case 8:
+                    System.out.println("Exiting the platform. Goodbye!");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+    }
+}
