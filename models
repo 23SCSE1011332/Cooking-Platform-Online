@@ -1,0 +1,61 @@
+import java.time.LocalDateTime;
+
+// User Class
+class User {
+    private String userId;
+    private String name;
+    private String email;
+
+    public User(String userId, String name, String email) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User [ID=" + userId + ", Name=" + name + ", Email=" + email + "]";
+    }
+}
+
+// CookingClass Class
+class CookingClass {
+    private String classId;
+    private String className;
+    private LocalDateTime schedule;
+    private String instructor;
+
+    public CookingClass(String classId, String className, LocalDateTime schedule, String instructor) {
+        this.classId = classId;
+        this.className = className;
+        this.schedule = schedule;
+        this.instructor = instructor;
+    }
+
+    public LocalDateTime getSchedule() {
+        return schedule;
+    }
+
+    @Override
+    public String toString() {
+        return "CookingClass [ID=" + classId + ", Name=" + className + ", Schedule=" + schedule + ", Instructor=" + instructor + "]";
+    }
+}
+
+// Recipe Class
+class Recipe {
+    private String recipeId;
+    private String title;
+    private String ingredients;
+
+    public Recipe(String recipeId, String title, String ingredients) {
+        this.recipeId = recipeId;
+        this.title = title;
+        this.ingredients = ingredients;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe [ID=" + recipeId + ", Title=" + title + ", Ingredients=" + ingredients + "]";
+    }
+}
