@@ -1,0 +1,79 @@
+CookingPlatform
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+public class CookingPlatform {
+    private HashMap<String, User> users = new HashMap<>();
+    private HashMap<String, CookingClass> classes = new HashMap<>();
+    private HashMap<String, Recipe> recipes = new HashMap<>();
+    private PriorityQueue<CookingClass> classQueue = new PriorityQueue<>((a, b) -> a.getSchedule().compareTo(b.getSchedule()));
+
+    public void addUser(String userId, String name, String email) {
+        if (users.containsKey(userId)) {
+            System.out.println("User ID already exists. Try a different ID.");
+            return;
+        }
+        User user = new User(userId, name, email);
+        users.put(userId, user);
+        System.out.println("User added: " + user);
+    }
+
+    public void addClass(String classId, String className, LocalDateTime schedule, String instructor) {
+        if (classes.containsKey(classId)) {
+            System.out.println("Class ID already exists. Try a different ID.");
+            return;
+        }
+        CookingClass cookingClass = new CookingClass(classId, className, schedule, instructor);
+        classes.put(classId, cookingClass);
+        classQueue.offer(cookingClass);
+        System.out.println("Cooking Class added: " + cookingClass);
+    }
+
+    public void addRecipe(String recipeId, String title, String ingredients) {
+        if (recipes.containsKey(recipeId)) {
+            System.out.println("Recipe ID already exists. Try a different ID.");
+            return;
+        }
+        Recipe recipe = new Recipe(recipeId, title, ingredients);
+        recipes.put(recipeId, recipe);
+        System.out.println("Recipe added: " + recipe);
+    }
+
+    public void displayUser(String userId) {
+        User user = users.get(userId);
+        if (user != null) {
+            System.out.println(user);
+        } else {
+            System.out.println("User not found.");
+        }
+    }
+
+    public void displayClass(String classId) {
+        CookingClass cookingClass = classes.get(classId);
+        if (cookingClass != null) {
+            System.out.println(cookingClass);
+        } else {
+            System.out.println("Class not found.");
+        }
+    }
+
+    public void displayRecipe(String recipeId) {
+        Recipe recipe = recipes.get(recipeId);
+        if (recipe != null) {
+            System.out.println(recipe);
+        } else {
+            System.out.println("Recipe not found.");
+        }
+    }
+
+    public void scheduleClasses() {
+        if (classQueue.isEmpty()) {
+            System.out.println("No classes to schedule.");
+            return;
+        }
+        while (!classQueue.isEmpty()) {
+            System.out.println(classQueue.poll());
+        }
+    }
+}
